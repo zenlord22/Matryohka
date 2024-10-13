@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Matryoshka
@@ -12,10 +12,24 @@ namespace Matryoshka
             List<MatryoshkaDoll> linedUpDolls = UnstackDolls(largestDoll);
 
             Console.WriteLine($"Total number of dolls: {CountDolls(linedUpDolls)}");
-            Console.WriteLine("Dolls lined up from largest to smallest:");
-            foreach (var doll in linedUpDolls)
+
+            // Find the largest doll in the lineup
+            MatryoshkaDoll largestInLineup = FindLargestDoll(linedUpDolls);
+            Console.WriteLine($"The largest doll in the lineup is: Matryoshka Doll {largestInLineup.Size}");
+
+            // Assign a random signature to one of the dolls
+            string signature = "UniqueSignature";
+            AssignRandomSignature(linedUpDolls, signature);
+
+            // Find the doll with the assigned signature
+            MatryoshkaDoll dollWithSignature = FindDollBySignature(linedUpDolls, signature);
+            if (dollWithSignature != null)
             {
-                Console.WriteLine($"Matryoshka Doll {doll.Size}");
+                Console.WriteLine($"The doll with the signature '{signature}' is: Matryoshka Doll {dollWithSignature.Size}");
+            }
+            else
+            {
+                Console.WriteLine($"No doll found with the signature '{signature}'");
             }
         }
 
@@ -59,12 +73,45 @@ namespace Matryoshka
         {
             return dolls.Count;
         }
+
+        static MatryoshkaDoll FindLargestDoll(List<MatryoshkaDoll> dolls)
+        {
+            MatryoshkaDoll largestDoll = null;
+            foreach (var doll in dolls)
+            {
+                if (largestDoll == null || doll.Size > largestDoll.Size)
+                {
+                    largestDoll = doll;
+                }
+            }
+            return largestDoll;
+        }
+
+        static void AssignRandomSignature(List<MatryoshkaDoll> dolls, string signature)
+        {
+            Random random = new Random();
+            int index = random.Next(dolls.Count);
+            dolls[index].Signature = signature;
+        }
+
+        static MatryoshkaDoll FindDollBySignature(List<MatryoshkaDoll> dolls, string signature)
+        {
+            foreach (var doll in dolls)
+            {
+                if (doll.Signature == signature)
+                {
+                    return doll;
+                }
+            }
+            return null;
+        }
     }
 
     class MatryoshkaDoll
     {
         public int Size { get; private set; }
         public MatryoshkaDoll SmallerDoll { get; set; }
+        public string Signature { get; set; }
 
         public MatryoshkaDoll(int size)
         {
