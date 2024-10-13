@@ -2,5 +2,7 @@
   Runtime is the same as the number of dolls are the same
 
 ##Line up
-  Runtime is the same as the number of dolls are the same.
-  But of course if you where to have the program input the number of dolls then your runtime will increase with the increase of numbers of dolls to sort and line up from largest to smallest
+  Runtime is the same as the number of dolls are the same as the Largest Doll is always the first Doll
+
+##Signature
+  The Runtime depends on which doll has the Signature with the largest Doll being the fastest as it is the first doll in the line up
